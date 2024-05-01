@@ -3,58 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AR Application</title>
+    <title>AR Application with Three.js</title>
     <style>
-        body {
+        body, html {
             margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
             overflow: hidden;
         }
-        header {
-            background-color: #333;
-            color: white;
-            text-align: center;
-            padding: 10px 0;
+        #container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        canvas {
+            max-width: 100%;
+            max-height: 100%;
+            width: auto;
+            height: auto;
+            display: block;
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1>Adventures in AR</h1>
-    </header>
-
-    <canvas id="ar-canvas"></canvas>
-
+    <div id="container">
+        <canvas id="arCanvas"></canvas>
+    </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script>
-        // Set up Three.js scene
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('ar-canvas') });
-        renderer.setSize(window.innerWidth, window.innerHeight);
-
-        // Create red sphere
-        const geometry = new THREE.SphereGeometry(1, 32, 32);
-        const textureLoader = new THREE.TextureLoader();
-        const texture = textureLoader.load('path/to/your/texture.jpg'); // Replace 'path/to/your/texture.jpg' with your texture file path
-        const material = new THREE.MeshBasicMaterial({ map: texture });
-        const sphere = new THREE.Mesh(geometry, material);
-        scene.add(sphere);
-
-        // Rotate sphere indefinitely
-        function animate() {
-            requestAnimationFrame(animate);
-            sphere.rotation.y += 0.01;
-            renderer.render(scene, camera);
-        }
-        animate();
-
-        // Adjust rendering when window is resized
-        function onWindowResize() {
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
-        }
-        window.addEventListener('resize', onWindowResize);
-    </script>
+    <script src="ar-app.js"></script>
 </body>
 </html>
+    
